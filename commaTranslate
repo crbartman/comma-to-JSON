@@ -1,0 +1,39 @@
+#include <fstream>
+#include <iostream>
+#include<cstddef>
+#include<ios>
+
+using namespace std;
+ 
+void translate (string);
+
+int main () {
+	string test="Marti,Wiesman,1/1/2019";
+	translate(test);
+	return 0;
+}
+
+void translate (string event) {
+	string fieldValues [3];
+	string keyValues [3];
+	keyValues [0]="fName";
+	keyValues [1]="lName";
+	keyValues [2]="Date";
+	string deliminator=",";
+	size_t eventLength=event.length();
+	size_t begining=0;
+	size_t ending=eventLength;
+	int n=0;
+	size_t nodeEnd=0;
+	while (n<3){
+	nodeEnd=event.find(",", begining);
+	fieldValues[n]=event.substr(begining, nodeEnd-begining);
+	begining=nodeEnd+1;
+	n+=1;
+	}
+	cout << "{\n";
+	for (int i=0; i<3; i++){
+		cout << "  \""+keyValues[i]+"\"  :  \""+fieldValues[i]+"\"\n";
+	}
+	cout << "}\n";
+}
